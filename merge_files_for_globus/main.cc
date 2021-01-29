@@ -161,7 +161,7 @@ void read_data(
   std::vector<std::string> vec;
   std::map<std::string, boost::shared_ptr<annotation> >::iterator finder;
   try {
-    input = merge_files_for_globus::reconcile_reader(filename);
+    input = finter::reconcile_reader(filename);
     input->getline(&line);
     categorical_override = line.find("P_CONSENSUS") != std::string::npos;
     while (input->getline(&line)) {
@@ -212,7 +212,7 @@ void write_data(
         &target) {
   finter::finter_writer *output = 0;
   try {
-    output = merge_files_for_globus::reconcile_writer(filename);
+    output = finter::reconcile_writer(filename);
     std::ostringstream header;
     header << "CHR\tPOS\tSNP\tTested_Allele\tOther_Allele";
     for (std::map<std::string,
