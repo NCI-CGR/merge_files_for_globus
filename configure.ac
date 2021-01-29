@@ -49,6 +49,4 @@ AC_CONFIG_FILES([
  Makefile
  merge_files_for_globus-1.0.0.pc
 ])
-AC_CONFIG_SUBDIRS([finter])
-
 AC_OUTPUT

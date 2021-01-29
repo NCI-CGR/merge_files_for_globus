@@ -153,7 +153,7 @@ void read_data(
     const std::string &filename, const std::string &file_tag,
     std::vector<std::map<std::string, boost::shared_ptr<annotation> > >
         &target) {
-  merge_files_for_globus::finter_reader *input = 0;
+  finter::finter_reader *input = 0;
   std::string line = "", id = "", ref = "", alt = "", freq = "";
   double beta = 0.0, se = 0.0, p = 0.0, hetp = 0.0;
   unsigned chr = 0, pos = 0, n = 0;
@@ -210,7 +210,7 @@ void write_data(
         &file_linker,
     const std::vector<std::map<std::string, boost::shared_ptr<annotation> > >
         &target) {
-  merge_files_for_globus::finter_writer *output = 0;
+  finter::finter_writer *output = 0;
   try {
     output = merge_files_for_globus::reconcile_writer(filename);
     std::ostringstream header;
