@@ -3,6 +3,7 @@ dependencies:
   - boost
   - zlib
   - bzip2
+  - finter
   - git
 # required for commitizen
   - nodejs
