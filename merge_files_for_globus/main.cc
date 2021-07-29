@@ -154,7 +154,7 @@ void read_data(
     std::vector<std::map<std::string, boost::shared_ptr<annotation> > >
         &target) {
   finter::finter_reader *input = 0;
-  std::string line = "", id = "", ref = "", alt = "", freq = "";
+  std::string line = "", id = "", ref = "", alt = "", freq = "", chr_str = "";
   double beta = 0.0, se = 0.0, p = 0.0, hetp = 0.0;
   unsigned chr = 0, pos = 0, n = 0;
   bool categorical_override = false;
@@ -172,7 +172,8 @@ void read_data(
           throw std::runtime_error("categorical type file \"" + filename +
                                    "\" had insufficient line entries :(");
         }
-        chr = from_string<unsigned>(vec.at(0));
+        
+        chr_str = vec.at(0);
         pos = from_string<unsigned>(vec.at(1));
         id = vec.at(2);
         ref = vec.at(3);
@@ -182,11 +183,19 @@ void read_data(
         p = from_string<double>(vec.at(vec.size() - 2));
         n = from_string<unsigned>(vec.at(vec.size() - 1));
       } else {
-        if (!(strm1 >> chr >> pos >> id >> ref >> alt >> freq >> beta >> se >>
+        if (!(strm1 >> chr_str >> pos >> id >> ref >> alt >> freq >> beta >> se >>
               p >> n >> hetp))
           throw std::domain_error("cannot read file \"" + filename +
                                   "\" line \"" + line + "\"");
       }
+
+      if (chr_str == "X") {
+	          chr = 23;
+	      } else {
+	          chr = from_string<unsigned>(chr_str);	
+	    }
+
+
       if (target.size() < chr) target.resize(chr);
       if ((finder = target.at(chr - 1).find(id)) == target.at(chr - 1).end()) {
         boost::shared_ptr<annotation> ptr(new annotation);
